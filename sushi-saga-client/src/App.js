@@ -1,27 +1,46 @@
 import React, { Component } from 'react';
 import SushiContainer from './containers/SushiContainer';
 import Table from './containers/Table';
-import db from './sushis/db.json'
 // Endpoint!
-const API = "http://localhost:3000/sushis"
+
 
 class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      // sushis: [],
+      // randomSushis: [],
+      plates: [],
+      wallet: 100
+    }
+  }
   // state = {
-  //   sushis = [];
-  //
+  //   sushis : [];
   // }
-  render() {
 
-    let s1 = db.sushis[Math.floor(Math.random()*(db.sushis.length))];
-    let s2 = db.sushis[Math.floor(Math.random()*(db.sushis.length))];
-    let s3 = db.sushis[Math.floor(Math.random()*(db.sushis.length))];
-    let s4 = db.sushis[Math.floor(Math.random()*(db.sushis.length))];
-    let sushis = [s1, s2, s3, s4]
-    // console.log(sushis)
+ eatSushi = (sushiId,price) => {
+   console.log('eat callback')
+   // let newRandomSushis = this.state.randomSushis.map(sushi=>{
+   //  return   sushi.id === sushiId? {...sushi, eaten:true} : sushi
+   // })
+   this.setState({
+     // randomSushis: newRandomSushis,
+     plates: [...this.state.plates, { }],
+     wallet: this.state.wallet - price
+   })
+ }
+
+  render() {
+    console.log(this.state)
     return (
       <div className="app">
-       <SushiContainer sushis={sushis} />
-        <Table />
+       <SushiContainer
+       // sushis={this.state.randomSushis}
+       // getSushis={this.getSushis}
+       eatSushi = {this.eatSushi}
+       wallet={this.state.wallet}
+        />
+        <Table plates={this.state.plates} wallet={this.state.wallet} />
       </div>
     );
   }

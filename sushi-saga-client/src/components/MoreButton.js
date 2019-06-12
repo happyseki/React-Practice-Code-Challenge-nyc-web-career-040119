@@ -1,8 +1,8 @@
 import React from 'react'
 
 const MoreButton = (props) => {
-  
-    return <button onClick={/* Fill me in! */ null}>
+// button onClick should trigger a function from parent
+    return <button onClick={props.getSushis}>
             More sushi!
           </button>
 }
